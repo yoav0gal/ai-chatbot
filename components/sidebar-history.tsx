@@ -151,8 +151,9 @@ export const ChatItem = memo(PureChatItem, (prevProps, nextProps) => {
 
 export function SidebarHistory({ user }: { user: User | undefined }) {
   const { setOpenMobile } = useSidebar();
-  const { id } = useParams();
   const pathname = usePathname();
+  const params = useParams();
+  const id = params.id ?? pathname.split("/").pop(); // Covers an edge case that happens when the user creates a new chat and does not navigate to the new chat path.
   const {
     data: history,
     isLoading,
